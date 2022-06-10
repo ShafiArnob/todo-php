@@ -29,10 +29,6 @@ else{
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   
   <link rel="stylesheet" href="style.css">
 
@@ -67,23 +63,22 @@ else{
             </div>
           </div>
 
-          <div class="list-item">
-            <p>Post Request</p>
-            <p>PHP</p>
-            <div class="list-item-action">
-              <button class="btn-edit">Edit</button>
-              <button class="btn-delete">X</button>
-            </div>
-          </div>
+        <?php
+          $sql = "SELECT * FROM `todo`";
+          $result = mysqli_query($conn, $sql);
 
-          <div class="list-item">
-            <p>Post Request</p>
-            <p>PHP</p>
-            <div class="list-item-action">
-              <button class="btn-edit">Edit</button>
-              <button class="btn-delete">X</button>
-            </div>
-          </div>
+          while($row = mysqli_fetch_assoc($result)){
+            
+            echo '<div class="list-item">
+              <p>' . $row['item'] . '</p>
+              <p>' . $row['tag'] . '</p>
+              <div class="list-item-action">
+                <button class="btn-edit">Edit</button>
+                <button class="btn-delete">X</button>
+              </div>
+            </div>';
+          }
+        ?>
 
         </div>
       </div>
@@ -103,6 +98,5 @@ else{
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-  <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 </body>
 </html>
