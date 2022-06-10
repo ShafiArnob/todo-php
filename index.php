@@ -15,6 +15,13 @@ if (!$conn){
 else{
   echo "Connection successful <br>";
 }
+//DELETE
+if(isset($_GET['delete'])){
+  $sid = $_GET['delete'];
+  
+  $sql = "DELETE FROM `todo` WHERE `sid` = $sid";
+  $result = mysqli_query($conn, $sql);
+}
 
 ?>
 <!DOCTYPE html>
@@ -29,7 +36,7 @@ else{
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  
+  <link rel="stylesheet" href="bootstrap.css">
   <link rel="stylesheet" href="style.css">
 
 </head>
@@ -74,7 +81,7 @@ else{
               <p>' . $row['tag'] . '</p>
               <div class="list-item-action">
                 <button class="btn-edit">Edit</button>
-                <button class="btn-delete">X</button>
+                <button class="delete btn-delete"  id="d'.$row['sid'].'">X</button>
               </div>
             </div>';
           }
@@ -84,19 +91,28 @@ else{
       </div>
     </div>
   </div>
+  
+  <script>
 
+    //DELETE: Detect delete and where it is coming from
+    deletes = document.getElementsByClassName('delete');
+    Array.from(deletes).forEach((element) => {
+      element.addEventListener("click", (e) => {
+        sno = e.target.id.substr(1);
+        if (confirm("Are you sure you want to delete this note!")) {
+          console.log("yes");
+          window.location = `/php_workspace/todo-vip/index.php?delete=${sno}`;
+        }
+        else {
+          console.log("no");
+        }
+      })
+    })
+  </script>
 
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
+  <script src="bootstrap.js"></script>
 </body>
 </html>
